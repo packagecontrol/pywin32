@@ -5,7 +5,7 @@ from package_control.sys_path import generate_dependency_paths
 
 assert(sys.platform.startswith('win'))
 
-PACKAGE_PATH = generate_dependency_paths("pywin32")['arch']
+PACKAGE_PATH = generate_dependency_paths("python-pywin32")['arch']
 LIB_PATHS = [
     (PACKAGE_PATH, "win32com"),
     (join(PACKAGE_PATH, "win32"), "win32"),
