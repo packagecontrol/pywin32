@@ -1,5 +1,6 @@
 import sys
 from os.path import join, dirname
+from os import environ
 import struct
 from package_control.sys_path import generate_dependency_paths
 
@@ -7,7 +8,6 @@ assert(sys.platform.startswith('win'))
 
 PACKAGE_PATH = generate_dependency_paths("python-pywin32")['arch']
 LIB_PATHS = [
-    (join(PACKAGE_PATH, "pywin32_system32"), "pywin32_system32"),
     (PACKAGE_PATH, "win32com"),
     (join(PACKAGE_PATH, "win32"), "win32"),
     (join(PACKAGE_PATH, "win32", "lib"), "win32/lib"),
@@ -18,3 +18,7 @@ for lib in LIB_PATHS:
     if lib[0] not in sys.path:
         sys.path.append(lib[0])
         print("python-pywin32: Added '%s'" % lib[1])
+
+pywin32_path = join(PACKAGE_PATH, "pywin32_system32")
+if pywin32_path not in environ["PATH"]:
+    environ["PATH"] = environ["PATH"] + ";" + pywin32_path
